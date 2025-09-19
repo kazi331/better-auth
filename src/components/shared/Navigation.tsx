@@ -14,6 +14,8 @@ const Navigation = () => {
         { href: '/', label: 'Dashboard', description: 'Go to main dashboard' },
         { href: '/posts', label: 'Posts', description: 'View all posts' },
         { href: '/users', label: 'Users', description: 'Manage users' },
+        { href: '/login', label: 'Login', description: 'Login to your account' },
+        { href: '/register', label: 'Register', description: 'Create a new account' },
     ];
 
     const isActive = (href: string) => {

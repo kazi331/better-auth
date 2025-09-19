@@ -61,7 +61,7 @@ export default function Page() {
                             By logging in, you agree to our Terms of Service and Privacy Policy.
                         </p>
                         <p className="text-xs text-gray-500 mt-3">
-                            Don't have an account? <a href="/auth/register" className="text-primary hover:underline">Register here</a>.
+                            Don't have an account? <a href="/register" className="text-primary hover:underline">Register here</a>.
                         </p>
                     </form>
                 </div>
