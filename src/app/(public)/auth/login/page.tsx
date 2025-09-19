@@ -1,6 +1,5 @@
 "use client"
 import Container from "@/components/shared/Container";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -39,8 +38,6 @@ export default function Page() {
         }
     };
 
-    const session = useSession()
-    console.log(session);
 
     return (
         <div className="bg-gray-100">
