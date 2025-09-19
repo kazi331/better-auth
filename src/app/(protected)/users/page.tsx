@@ -45,7 +45,7 @@ export default function Uusers() {
         )
     }
     return (
-        <Container>
+        <Container className="py-6">
             <div className="flex items-center justify-between">
                 <p className="text-sm text-gray-500">Showing {users?.length || 0} users</p>
                 <button

@@ -60,7 +60,7 @@ export default function PostDetailPage({ params }: PostDetailPageProps) {
   }
 
   return (
-    <Container className="max-w-4xl mx-auto space-y-6">
+    <Container className="max-w-4xl mx-auto space-y-6 py-6">
       {/* Back Button */}
       <Link href="/posts" className="inline-flex items-center text-primary hover:text-accent transition-colors">
         <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
