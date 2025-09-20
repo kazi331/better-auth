@@ -1,5 +1,5 @@
 "use client"
-import { useSidebar } from "@/context/useSidebar";
+import { useSidebar } from "@/context";
 import { sidebarCollapsedWidth, sidebarExpandedWidth } from "@/lib";
 import { Files, Home, SidebarClose, SidebarOpen, Users } from "lucide-react";
 import Link from "next/link";

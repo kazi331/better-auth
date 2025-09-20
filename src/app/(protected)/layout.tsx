@@ -1,7 +1,7 @@
 "use client"
 import Navigation from "@/components/shared/Navigation";
 import Sidebar from "@/components/Sidebar";
-import { SidebarProvider, useSidebar } from "@/context/useSidebar";
+import { useSidebar, SidebarProvider } from "@/context";
 import { collapsedMarginLeft, expandedMarginLeft } from "@/lib";
 import { ReactNode } from "react";
 
