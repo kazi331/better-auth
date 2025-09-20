@@ -1,5 +1,6 @@
 "use client"
 import Container from "@/components/shared/Container";
+import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -31,15 +32,25 @@ export default function Page() {
             return;
         }
         try {
-            console.log({ email, password });
+            // console.log({ email, password });
             setError({ email: "", password: "", name: "" });
-            toast.success("Login successful!");
+            const res = await signIn("credentials", {
+                redirect: false,
+                email: email,
+                password: password,
+                isRegistration: true,
+            });
+            console.log(res);
+            console.log(res.ok)
+            // toast.success("Login successful!");
         } catch (err: any) {
             toast.error(err.message || "An error occurred during login.");
             return;
         }
     };
 
+    const session = useSession();
+    console.log(session);
 
     return (
         <div className="bg-gray-100">
