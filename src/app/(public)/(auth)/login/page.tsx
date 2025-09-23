@@ -1,7 +1,6 @@
 "use client"
-import Container from "@/components/shared/Container";
 // import { signIn } from "@/lib/auth";
-import { signIn, useSession, } from "next-auth/react";
+import { signIn } from "next-auth/react";
 // 
 import { useState } from "react";
 import { toast } from "sonner";
@@ -51,12 +50,9 @@ export default function Page() {
     };
 
 
-    const session = useSession();
-    console.log(session);
-
     return (
         <div className="bg-gray-100">
-            <Container>
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="min-h-screen grid place-items-center">
                     <form onSubmit={handleLogin} className="bg-white flex flex-col w-full md:w-1/2 px-8 py-8 rounded-lg shadow-lg">
                         <h2 className="text-gray-900 mb-10 font-bold text-3xl title-font text-center ">Login</h2>
@@ -80,7 +76,7 @@ export default function Page() {
                         </p>
                     </form>
                 </div>
-            </Container>
+            </div>
         </div>
     )
 }
