@@ -7,7 +7,6 @@ import { ReactNode } from "react";
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {
     const { isOpen } = useSidebar();
-    console.log(isOpen)
     return (
         <div className="min-h-full">
             <Sidebar />

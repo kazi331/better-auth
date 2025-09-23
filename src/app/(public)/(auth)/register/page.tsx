@@ -1,5 +1,4 @@
 "use client"
-import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -33,14 +32,7 @@ export default function Page() {
         try {
             // console.log({ email, password });
             setError({ email: "", password: "", name: "" });
-            const res = await signIn("credentials", {
-                redirect: false,
-                email: email,
-                password: password,
-                isRegistration: true,
-            });
-            console.log(res);
-            console.log(res.ok)
+
             // toast.success("Login successful!");
         } catch (err: any) {
             toast.error(err.message || "An error occurred during login.");
