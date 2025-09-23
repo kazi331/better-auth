@@ -36,16 +36,16 @@ const Navigation = () => {
     return (
         <nav className="bg-white shadow-lg border-b border-gray-200" role="navigation" >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16">
+                <div className="flex justify-end h-16">
                     {/* Logo/Brand */}
-                    <div className="flex items-center">
+                    {/* <div className="flex items-center">
                         <Link
                             href="/"
                             className="flex-shrink-0 flex items-center focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 rounded-md px-2 py-1"
                         >
                             <span className="text-xl font-bold text-gray-900">Dashboard</span>
                         </Link>
-                    </div>
+                    </div> */}
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-2" role="menubar">
