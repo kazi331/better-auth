@@ -38,16 +38,21 @@ export default function Page() {
             setIsLoading(true);
             // console.log({ email, password });
             setError({ email: "", password: "" });
-            const { data, error } = await signIn.email({
+            await signIn.email({
                 email,
-                password
+                password,
+                // rememberMe: false 
+            }, {
+                onError: ({ error }) => {
+                    toast.error(error?.message || "Login failed!")
+                },
+                onSuccess: ({ data }) => {
+                    if (data?.user) {
+                        toast.success("Login successful!")
+                        router.push('/')
+                    }
+                },
             })
-            // console.log(data, error)
-            if (error) toast.error(error.message)
-            if (data?.user) {
-                toast.success("Login successful!")
-                router.push('/')
-            }
 
         } catch (err: any) {
             console.log(err?.message)
