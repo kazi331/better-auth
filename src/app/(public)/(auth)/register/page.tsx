@@ -1,4 +1,6 @@
 "use client"
+import { signUp } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -7,11 +9,13 @@ export default function Page() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState({
         email: "",
         password: "",
         name: ""
     })
+    const router = useRouter();
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!isValidEmail(email)) {
@@ -30,13 +34,26 @@ export default function Page() {
             return;
         }
         try {
-            // console.log({ email, password });
+            setIsLoading(true)
             setError({ email: "", password: "", name: "" });
+            const { data, error } = await signUp.email({
+                email,
+                name,
+                password,
+                callbackURL: '/',
+            })
+            if (error) toast.error(error.message)
+            if (data?.user) {
+                toast.success("Registration successful!")
+                router.push('/login')
+            }
 
             // toast.success("Login successful!");
         } catch (err: any) {
             toast.error(err.message || "An error occurred during login.");
             return;
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -64,7 +81,7 @@ export default function Page() {
                             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}
                                 className={`w-full bg-white rounded border  ${error.password ? "border-red-500" : "border-gray-300"} focus:border-primary focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`} />
                         </div>
-                        <button className="text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-accent rounded text-lg cursor-pointer mt-4">Register</button>
+                        <button disabled={isLoading} className="text-white bg-primary disabled:bg-primary/80 disabled:cursor-wait border-0 py-2 px-6 focus:outline-none hover:bg-accent rounded text-lg cursor-pointer mt-4">{isLoading ? "Processing..." : "Register"}</button>
                         <p className="text-xs text-gray-600 mt-2"> By registering, you agree to our Terms of Service and Privacy Policy.</p>
                         <p className="text-xs text-gray-500 mt-3">
                             Already have an account? <a href="/login" className="text-primary hover:underline">Login here</a>.

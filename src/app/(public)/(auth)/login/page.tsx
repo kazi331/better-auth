@@ -1,7 +1,9 @@
 "use client"
+import { signIn } from "@/lib/auth-client";
 import SocialLogin from "./SocialLogin";
 // import { signIn } from "@/lib/auth";
 // 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -13,6 +15,8 @@ export default function Page() {
         email: "",
         password: ""
     })
+    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!isValidEmail(email)) {
@@ -31,13 +35,25 @@ export default function Page() {
             return;
         }
         try {
+            setIsLoading(true);
             // console.log({ email, password });
             setError({ email: "", password: "" });
+            const { data, error } = await signIn.email({
+                email,
+                password
+            })
+            // console.log(data, error)
+            if (error) toast.error(error.message)
+            if (data?.user) {
+                toast.success("Login successful!")
+                router.push('/')
+            }
 
         } catch (err: any) {
             console.log(err?.message)
             toast.error(err.message || "An error occurred during login.");
-            return;
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -59,7 +75,7 @@ export default function Page() {
                             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}
                                 className={`w-full bg-white rounded border  ${error.password ? "border-red-500" : "border-gray-300"} focus:border-primary focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`} />
                         </div>
-                        <button className="text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-accent rounded text-lg cursor-pointer mt-4">Login</button>
+                        <button disabled={isLoading} className="text-white bg-primary disabled:bg-primary/80 disabled:cursor-wait border-0 py-2 px-6 focus:outline-none hover:bg-accent rounded text-lg cursor-pointer mt-4">{isLoading ? "Processing..." : "Login"}</button>
                         <SocialLogin />
                         <p className="text-xs text-gray-500 mt-3">
                             By logging in, you agree to our Terms of Service and Privacy Policy.
