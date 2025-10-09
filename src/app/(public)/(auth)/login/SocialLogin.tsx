@@ -1,11 +1,11 @@
-import { authClient } from "@/lib/auth-client"
+import { signIn } from "@/lib"
 import { toast } from "sonner"
 
 export default function SocialLogin() {
     type SocialProvider = "google" | "github" | "apple" | "facebook"
 
     const socialLogin = async (provider: SocialProvider) => {
-        await authClient.signIn.social({
+        await signIn.social({
             provider: provider,
             callbackURL: '/',
             errorCallbackURL: '/error',
@@ -13,7 +13,6 @@ export default function SocialLogin() {
             // disableRedirect: true
             fetchOptions: {
                 onError: ({ error, response }) => {
-                    console.log(error)
                     toast.error(error?.message)
                 },
                 onSuccess: ({ data }) => {
