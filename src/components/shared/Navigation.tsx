@@ -10,8 +10,6 @@ const navLinks = [
     { href: '/', label: 'Dashboard', description: 'Go to main dashboard' },
     { href: '/posts', label: 'Posts', description: 'View all posts' },
     { href: '/users', label: 'Users', description: 'Manage users' },
-    { href: '/login', label: 'Login', description: 'Login to your account' },
-    { href: '/register', label: 'Register', description: 'Create a new account' },
 ];
 const Navigation = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -75,7 +73,7 @@ const Navigation = () => {
                                 {menu.label}
                             </Link>
                         ))}
-                        {data?.session && <button className='px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus:ring-primary/60 focus-visible:ring-offset-2 text-gray-700 hover:text-primary/90 hover:bg-gray-50 cursor-pointer' onClick={logout}>Logout</button>}
+                        {data?.session && <button className='px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus:ring-rose-500/60 focus-visible:ring-offset-2 text-gray-700 hover:text-rose-500/90 focus-visible:text-rose-500 hover:bg-gray-50 cursor-pointer' onClick={logout}>Logout</button>}
                     </div>
 
                     {/* Mobile menu button */}
@@ -152,7 +150,7 @@ const Navigation = () => {
                             {menu.label}
                         </Link>
                     ))}
-                    {data?.session && <button className='block px-3 py-3 rounded-md text-base font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 text-gray-700 hover:text-accent hover:bg-white w-full text-left cursor-pointer' onClick={logout}>Logout</button>}
+                    {data?.session && <button className='block px-3 py-3 rounded-md text-base font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-rose-500/60 focus:ring-offset-2 text-gray-700 hover:text-rose-500 focus-visible:text-rose-500 hover:bg-white w-full text-left cursor-pointer' onClick={logout}>Logout</button>}
                 </div>
             </div>
         </nav>
