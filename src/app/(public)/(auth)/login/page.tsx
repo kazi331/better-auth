@@ -44,6 +44,7 @@ export default function Page() {
                 // rememberMe: false 
             }, {
                 onError: ({ error }) => {
+                    console.log(error)
                     toast.error(error?.message || "Login failed!")
                 },
                 onSuccess: ({ data }) => {

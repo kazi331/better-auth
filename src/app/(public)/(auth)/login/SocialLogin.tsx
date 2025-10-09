@@ -1,4 +1,5 @@
 import { authClient } from "@/lib/auth-client"
+import { toast } from "sonner"
 
 export default function SocialLogin() {
     type SocialProvider = "google" | "github" | "apple" | "facebook"
@@ -10,14 +11,15 @@ export default function SocialLogin() {
             errorCallbackURL: '/error',
             newUserCallbackURL: '/welcome',
             // disableRedirect: true
-            // fetchOptions: {
-            //     onError: ({ error, response }) => {
-            //         console.log(error, response)
-            //     },
-            //     onSuccess: ({ data }) => {
-            //         console.log('Login success', data)
-            //     },
-            // },
+            fetchOptions: {
+                onError: ({ error, response }) => {
+                    console.log(error)
+                    toast.error(error?.message)
+                },
+                onSuccess: ({ data }) => {
+                    console.log('Login success', data)
+                },
+            },
         })
     }
     const socialButtons = ['github', 'google', 'apple']
