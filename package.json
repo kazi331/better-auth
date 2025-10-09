@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "pnpm dlx prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "6.17.0",
