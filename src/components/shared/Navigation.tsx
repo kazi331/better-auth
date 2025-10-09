@@ -1,10 +1,9 @@
 'use client';
 
-import { authClient } from '@/lib/auth-client';
-import { User } from 'better-auth';
+import { signOut, useSession } from '@/lib';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 const navLinks = [
@@ -19,36 +18,17 @@ const Navigation = () => {
     const pathname = usePathname();
     const mobileMenuRef = useRef<HTMLDivElement>(null);
     const menuButtonRef = useRef<HTMLButtonElement>(null);
-    const [user, setUser] = useState<User | null>(null)
-
+    const { data } = useSession()
     const router = useRouter();
-
-    const getSession = async () => {
-        const { data, error } = await authClient.getSession({
-            fetchOptions: {
-                onError: ({ error }) => { toast.error(error?.message) },
-                onSuccess: ({ data }) => {
-                    console.log(data?.user)
-                    if (data?.user) setUser(data.user)
-                }
+    const logout = () => signOut({
+        fetchOptions: {
+            onSuccess: () => router.push("/login"),
+            onError: (err) => {
+                // authClient.revokeSession
+                toast.error(err.error.message)
             }
-        });
-    }
-    useEffect(() => {
-        getSession();
-    }, [])
-
-    const logout = async () => {
-        console.log('logout')
-        authClient.signOut({
-            fetchOptions: {
-                onSuccess: () => router.push("/login"),
-                onError: (err) => {
-                    toast.error(err.error.message)
-                }
-            }
-        });
-    }
+        }
+    });
 
     const isActive = (href: string) => {
         if (href === '/') {
@@ -95,7 +75,7 @@ const Navigation = () => {
                                 {menu.label}
                             </Link>
                         ))}
-                        {user ? <button className='px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus:ring-primary/60 focus-visible:ring-offset-2 text-gray-700 hover:text-primary/90 hover:bg-gray-50 cursor-pointer' onClick={logout}>Logout</button> : null}
+                        {data?.session && <button className='px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus:ring-primary/60 focus-visible:ring-offset-2 text-gray-700 hover:text-primary/90 hover:bg-gray-50 cursor-pointer' onClick={logout}>Logout</button>}
                     </div>
 
                     {/* Mobile menu button */}
@@ -172,7 +152,7 @@ const Navigation = () => {
                             {menu.label}
                         </Link>
                     ))}
-                    <button className='block px-3 py-3 rounded-md text-base font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 text-gray-700 hover:text-accent hover:bg-white w-full text-left cursor-pointer' onClick={logout}>Logout</button>
+                    {data?.session && <button className='block px-3 py-3 rounded-md text-base font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 text-gray-700 hover:text-accent hover:bg-white w-full text-left cursor-pointer' onClick={logout}>Logout</button>}
                 </div>
             </div>
         </nav>

@@ -10,14 +10,14 @@ export default function SocialLogin() {
             errorCallbackURL: '/error',
             newUserCallbackURL: '/welcome',
             // disableRedirect: true
-            fetchOptions: {
-                onError: ({ error, response }) => {
-                    console.log(error, response)
-                },
-                onSuccess: ({ data }) => {
-                    console.log('Login success', data)
-                },
-            },
+            // fetchOptions: {
+            //     onError: ({ error, response }) => {
+            //         console.log(error, response)
+            //     },
+            //     onSuccess: ({ data }) => {
+            //         console.log('Login success', data)
+            //     },
+            // },
         })
     }
     const socialButtons = ['github', 'google', 'apple']
