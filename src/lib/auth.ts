@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export const auth = betterAuth({
   // db setup
   database: prismaAdapter(prisma, {
-    provider: "sqlite", // or "mysql", "postgresql", ...etc
+    provider: "postgresql", // or "mysql", "postgresql", ...etc
   }),
   //   auth options
   secret: process.env.BETTER_AUTH_SECRET,
