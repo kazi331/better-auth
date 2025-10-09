@@ -9,6 +9,7 @@ export const auth = betterAuth({
     provider: "sqlite", // or "mysql", "postgresql", ...etc
   }),
   //   auth options
+  secret: process.env.BETTER_AUTH_SECRET,
   emailAndPassword: {
     enabled: true,
     autoSignIn: false, // disable autosignin after register
